@@ -1,6 +1,7 @@
 /**
  * @author: Timo Schmidt, Tony Schultze, Kenneth Englisch
  * @version: 2019-01-09
+ * Getting from A to B
  */
 
 import java.util.List;
