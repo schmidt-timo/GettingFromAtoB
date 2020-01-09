@@ -1,4 +1,5 @@
 // @author: Timo Schmidt, Tony Schultze, Kenneth Englisch
+// @version: 2019-01-09
 
 import java.util.List;
 import java.util.Random;
