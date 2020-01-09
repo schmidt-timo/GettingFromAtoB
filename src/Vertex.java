@@ -1,5 +1,7 @@
 import java.util.Random;
 
+// DIESE KLASSE ERFÜLLT MOMENTAN KEINEN ZWECK MEHR!
+
 public class Vertex {
 
     Object data;

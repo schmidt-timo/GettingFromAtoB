@@ -1,5 +1,5 @@
 /**
- * @author: Timo Schmidt, Tony Schultze, Kenneth Englisch
+ * @author: Kenneth Englisch, Timo Schmidt, Tony Schultze
  * @version: 2019-01-09
  * Getting from A to B
  */
@@ -90,8 +90,6 @@ public class Graph implements WeightedGraph {
                     ad = ad.next;
                 }
             }
-
-
         }
     }
 
