@@ -10,58 +10,77 @@ import java.util.Random;
 
 public class Graph implements WeightedGraph {
 
-	class adjList {
-		Edge head;
-	}
-
 	Random rand = new Random();
-	adjList array[];
-	int V;
+	adjList arrayVertex[];
+	int v;
 
 	public Graph(int vertices, int edges, boolean random) {
 
 		// Create Array of type adjList with the same size as the amount of vertices
-		array = new adjList[vertices];
-		V = vertices;
+		arrayVertex = new adjList[vertices];
+		v = vertices;
 
 		// Create another list inside of the Array
 		// Set head to null
 		for (int i = 0; i < vertices; i++) {
-			array[i] = new adjList();
-			array[i].head = null;
+			arrayVertex[i] = new adjList();
+			arrayVertex[i].head = null;
 		}
 
 		if (random)
 			generateRandomGraph();
 	}
 
+	public static void main(String[] args) {
+		/*
+		 * Graph graph = new Graph(3, 5); graph.addEdge('A', 'B', 1); graph.addEdge('A',
+		 * 'C', 2); graph.addEdge('C', 'D', 4); graph.printGraph(graph);
+		 */
+
+		Graph graph = new Graph(27, 100, true);
+		Edge ad = null;
+		Vertex source = null;
+		while (ad == null)
+			ad = graph.arrayVertex[(graph.rand.nextInt((26 - 1) + 1) + 1)].head;
+		source = ad.source;
+		ad = null;
+		Vertex destination = null;
+		while (ad == null)
+			ad = graph.arrayVertex[(graph.rand.nextInt((26 - 1) + 1) + 1)].head;
+		destination = ad.source;
+
+		graph.getCheapestPath(source, destination, graph.arrayVertex);
+		// graph.printGraph();
+	}
+
 	public void generateRandomGraph() {
-		for (int i = 1; i <= V; i++) {
-			char randomVertex = (char) (rand.nextInt(90 - 65) + 65);
-			char randomEdge = (char) (rand.nextInt(90 - 65) + 65);
-			
+		for (int i = 1; i <= v; i++) {
+			int randomSrc = rand.nextInt((26 - 1) + 1) + 1;
+			int randomDest = rand.nextInt((26 - 1) + 1) + 1;
+			Vertex vSrc = new Vertex(randomSrc);
+			Vertex vDest = new Vertex(randomDest);
+
 			/*
-			 * char randomVertex = (char) (rand.nextInt(26) + 'A');
-			 * char randomEdge = (char) (rand.nextInt(26) + 'A');
+			 * char randomVertex = (char) (rand.nextInt(26) + 'A'); char randomEdge = (char)
+			 * (rand.nextInt(26) + 'A');
 			 */
 			int randomWeight = rand.nextInt(11);
-			addEdge(randomVertex, randomEdge, randomWeight);
+			addEdge(vSrc, vDest, randomWeight);
 		}
 	}
 
-	public void addEdge(char src, char dest, int weight) {
+	public void addEdge(Vertex src, Vertex dest, int weight) {
 		// Create a new edge with source/destination/weight
 		Edge edge = new Edge(src, dest, weight);
 
 		// add this node to the adjList
-		int source = (int) src - 65;
-		edge.next = array[source].head;
-		array[source].head = edge;
+		edge.next = arrayVertex[(int) src.data].head;
+		arrayVertex[(int) src.data].head = edge;
 
 	}
 
-	public List getCheapestPath(Vertex source, Vertex destination) {
-		return null;
+	public void getCheapestPath(Vertex source, Vertex destination, adjList arrayVertex[]) {
+		Dijkstra d = new Dijkstra(source, destination, arrayVertex);
 	}
 
 	public List getShortestPath(Vertex source, Vertex destination) {
@@ -73,27 +92,19 @@ public class Graph implements WeightedGraph {
 		return 0;
 	}
 
-	public static void main(String[] args) {
-		/*
-		 * Graph graph = new Graph(3, 5); graph.addEdge('A', 'B', 1); graph.addEdge('A',
-		 * 'C', 2); graph.addEdge('C', 'D', 4); graph.printGraph(graph);
-		 */
-
-		Graph graph = new Graph(26, 100, true);
-		graph.printGraph();
-	}
-
 	// kopiert von
 	// https://algorithms.tutorialhorizon.com/graph-representation-adjacency-matrix-and-adjacency-list/
 	public void printGraph() {
-		int vertex = V;
+		int vertex = v;
 		Edge ad;
 		for (int i = 0; i < vertex; i++) {
-			ad = array[i].head;
+			ad = arrayVertex[i].head;
 			if (ad != null) {
-				System.out.println("\nNodes connected to Vertex " + ad.source + " are :");
+				System.out.println(
+						"\nNodes connected to Vertex " + ((char) ('A' + ((int) ad.source.data) - 1) + " are :"));
 				while (ad != null) {
-					System.out.print("   " + ad.destination + " (Weight:" + ad.weight + ")");
+					System.out.print(
+							"   " + ((char) ('A' + ((int) ad.destination.data) - 1) + " (Weight:" + ad.weight + ")"));
 					ad = ad.next;
 				}
 			}

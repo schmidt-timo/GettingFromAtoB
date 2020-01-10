@@ -2,8 +2,8 @@ import java.util.List;
 
 public interface WeightedGraph {
 
-    void addEdge(char src, char dest, int weight);
-    List getCheapestPath(Vertex source, Vertex destination);
+    void addEdge(Vertex src, Vertex dest, int weight);
+    void getCheapestPath(Vertex source, Vertex destination, adjList arrayVertex[]);
     List getShortestPath(Vertex source, Vertex destination);
     String toString();
 
