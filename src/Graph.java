@@ -11,7 +11,7 @@ import java.util.Random;
 public class Graph implements WeightedGraph {
 
 	Random rand = new Random();
-	adjList arrayVertex[];
+	adjList[] arrayVertex;
 	int v;
 
 	public Graph(int vertices, int edges, boolean random) {
@@ -31,7 +31,7 @@ public class Graph implements WeightedGraph {
 			generateRandomGraph();
 	}
 
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		
 		 
 		Graph graph = new Graph(26, 100, true);
@@ -49,7 +49,7 @@ public class Graph implements WeightedGraph {
 		graph.getCheapestPath(source, destination, graph.arrayVertex);
 		// graph.printGraph();
 		
-	}
+	}*/
 
 	public void generateRandomGraph() {
 		for (int i = 1; i <= v; i++) {

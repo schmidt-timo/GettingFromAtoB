@@ -1,9 +1,9 @@
 
 public class Vertex {
 
-    Object data;
+    int data;
 
-    public Vertex(Object data) {
+    public Vertex(int data) {
         this.data = data;
     }
 }
