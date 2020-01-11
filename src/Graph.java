@@ -54,7 +54,7 @@ public class Graph implements WeightedGraph {
 	}*/
 
 	public static void main(String[] args) {
-		Graph graph = new Graph(4, 4, false);
+		Graph graph = new Graph(3, 4, false);
 
 		Vertex A = new Vertex('A');
 		Vertex B = new Vertex('B');
@@ -66,8 +66,6 @@ public class Graph implements WeightedGraph {
 		graph.addEdge(C, A, 6);
 
 		graph.printGraph();
-
-
 	}
 
 	public void generateRandomGraph() {
@@ -127,11 +125,11 @@ public class Graph implements WeightedGraph {
 
 	// This methods returns a 1 for 'A' and 26 for 'Z'
 	public int charToNumber(char c) {
-		return (int) c - 64;
+		return (int) c - 65;
 	}
 
 	// and vice versa
 	public char numberToChar(int n) {
-		return (char) (n + 64);
+		return (char) (n + 65);
 	}
 }
