@@ -103,7 +103,7 @@ public class Graph implements WeightedGraph {
 
     public void findShortestPath(char src, char dest) {
 
-        int infinite = Integer.MAX_VALUE;
+/*        int infinite = Integer.MAX_VALUE;
         boolean[] SPT = new boolean[V];
 
         // Create HeapNodes, set Vertex to the respective value and distance to infinity
@@ -118,7 +118,7 @@ public class Graph implements WeightedGraph {
         heapNodes[charToNumber(src)].distance = 0;
 
         // add all vertices to MinHeap
-
+*/
     }
 
     public void findCheapestPath(char src, char dest) {
