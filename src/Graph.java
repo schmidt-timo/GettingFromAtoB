@@ -31,11 +31,11 @@ public class Graph implements WeightedGraph {
 			generateRandomGraph();
 	}
 
-	public static void main(String[] args) {
-		/*
+/*	public static void main(String[] args) {
+		*//*
 		 * Graph graph = new Graph(3, 5); graph.addEdge('A', 'B', 1); graph.addEdge('A',
 		 * 'C', 2); graph.addEdge('C', 'D', 4); graph.printGraph(graph);
-		 */
+		 *//*
 
 		Graph graph = new Graph(27, 100, true);
 		Edge ad = null;
@@ -51,17 +51,33 @@ public class Graph implements WeightedGraph {
 
 		graph.getCheapestPath(source, destination, graph.arrayVertex);
 		// graph.printGraph();
+	}*/
+
+	public static void main(String[] args) {
+		Graph graph = new Graph(3, 4, false);
+
+		Vertex A = new Vertex(1);
+		Vertex B = new Vertex(2);
+		Vertex C = new Vertex(3);
+
+		graph.addEdge(A, B, 4);
+		graph.addEdge(B, C, 2);
+		graph.addEdge(C, B, 2);
+		graph.addEdge(C, A, 6);
+
+		graph.printGraph();
+
+
 	}
 
 	public void generateRandomGraph() {
 		for (int i = 1; i <= v; i++) {
-			int randomSrc = rand.nextInt(26 - 1) + 1;
-			int randomDest = rand.nextInt(26 - 1) + 1;
+			int randomSrc = rand.nextInt(26 - 1) + 1;	// get random value between 1 and 26 (A to Z)
+			int randomDest = rand.nextInt(26 - 1) + 1;	// same here
 			Vertex vSrc = new Vertex(randomSrc);
 			Vertex vDest = new Vertex(randomDest);
 
-			// get random value between 1 and 10
-			int randomWeight = rand.nextInt(11);
+			int randomWeight = rand.nextInt(11);			// get random value between 1 and 10
 			addEdge(vSrc, vDest, randomWeight);
 		}
 	}
@@ -71,8 +87,8 @@ public class Graph implements WeightedGraph {
 		Edge edge = new Edge(src, dest, weight);
 
 		// add this node to the adjList
-		edge.next = arrayVertex[(int) src.data].head;
-		arrayVertex[(int) src.data].head = edge;
+		edge.next = arrayVertex[(int) src.data-1].head;
+		arrayVertex[(int) src.data-1].head = edge;
 
 	}
 
