@@ -7,17 +7,17 @@ public class Dijkstra {
 	private Edge previous;
 	private Edge neighbour;
 	private Edge smallest;
-	private adjList v[];
-	private adjList path[];
+	private adjList[] v;
+	private adjList[] path;
 
-	public Dijkstra(Vertex source, Vertex destination, adjList vertices[]) {
+	public Dijkstra(Vertex source, Vertex destination, adjList[] vertices) {
 		this.source = source;
 		this.destination = destination;
 		this.v = vertices;
 		path = new adjList[vertices.length];
 		
 		//cheapestPath(this.source, this.destination);
-		System.out.println((char) ('A' + ((int) getCheapestNeighbour(this.source).data)));
+		System.out.println(numberToChar(getCheapestNeighbour(this.source).data));
 	}
 
 	public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class Dijkstra {
 
 	public Vertex getCheapestNeighbour(Vertex source) {
 		//select the edges from the wanted vertex out of the array
-		neighbour = v[(int) source.data].head;
+		neighbour = v[source.data].head;
 		
 		/*
 		 * loop iterates through every edge from the selected vertex
@@ -36,7 +36,7 @@ public class Dijkstra {
 		 * neighbour becomes null when there are no more entries in the adjList of the vertex
 		 */
 		while (neighbour != null) {
-			System.out.print((char) ('A' + ((int) source.data)) + " -> " + ((char) ('A' + ((int) neighbour.destination.data)) + " (Weight:" + neighbour.weight + ")\n"));
+			System.out.print(numberToChar(source.data) + " -> " + numberToChar(neighbour.destination.data) + " (Weight:" + neighbour.weight + ")\n");
 			//previous is null at the first run or when we only have one edge so there is nothing to compare
 			if (previous != null) {
 				/*
@@ -75,6 +75,10 @@ public class Dijkstra {
 	}
 
 	public void cheapestPath(Vertex source, Vertex destination) {
+	}
+
+	public char numberToChar(int n) {
+		return (char) (n + 65);
 	}
 
 }
