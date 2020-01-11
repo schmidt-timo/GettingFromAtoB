@@ -54,11 +54,11 @@ public class Graph implements WeightedGraph {
 	}*/
 
 	public static void main(String[] args) {
-		Graph graph = new Graph(3, 4, false);
+		Graph graph = new Graph(4, 4, false);
 
-		Vertex A = new Vertex(1);
-		Vertex B = new Vertex(2);
-		Vertex C = new Vertex(3);
+		Vertex A = new Vertex('A');
+		Vertex B = new Vertex('B');
+		Vertex C = new Vertex('C');
 
 		graph.addEdge(A, B, 4);
 		graph.addEdge(B, C, 2);
@@ -74,8 +74,8 @@ public class Graph implements WeightedGraph {
 		for (int i = 1; i <= v; i++) {
 			int randomSrc = rand.nextInt(26 - 1) + 1;	// get random value between 1 and 26 (A to Z)
 			int randomDest = rand.nextInt(26 - 1) + 1;	// same here
-			Vertex vSrc = new Vertex(randomSrc);
-			Vertex vDest = new Vertex(randomDest);
+			Vertex vSrc = new Vertex(numberToChar(randomSrc));
+			Vertex vDest = new Vertex(numberToChar(randomDest));
 
 			int randomWeight = rand.nextInt(11);			// get random value between 1 and 10
 			addEdge(vSrc, vDest, randomWeight);
@@ -85,10 +85,11 @@ public class Graph implements WeightedGraph {
 	public void addEdge(Vertex src, Vertex dest, int weight) {
 		// Create a new edge with source/destination/weight
 		Edge edge = new Edge(src, dest, weight);
+		int n = charToNumber((char) src.data);
 
 		// add this node to the adjList
-		edge.next = arrayVertex[(int) src.data-1].head;
-		arrayVertex[(int) src.data-1].head = edge;
+		edge.next = arrayVertex[n].head;
+		arrayVertex[n].head = edge;
 
 	}
 
@@ -114,13 +115,23 @@ public class Graph implements WeightedGraph {
 			ad = arrayVertex[i].head;
 			if (ad != null) {
 				System.out.println(
-						"\nNodes connected to Vertex " + ((char) ('A' + ((int) ad.source.data) - 1) + " are :"));
+						"\nNodes connected to Vertex " + ad.source.data + " are :");
 				while (ad != null) {
 					System.out.print(
-							"   " + ((char) ('A' + ((int) ad.destination.data) - 1) + " (Weight:" + ad.weight + ")"));
+							"   " + ad.destination.data + " (Weight:" + ad.weight + ")");
 					ad = ad.next;
 				}
 			}
 		}
+	}
+
+	// This methods returns a 1 for 'A' and 26 for 'Z'
+	public int charToNumber(char c) {
+		return (int) c - 64;
+	}
+
+	// and vice versa
+	public char numberToChar(int n) {
+		return (char) (n + 64);
 	}
 }
