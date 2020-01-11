@@ -55,15 +55,12 @@ public class Graph implements WeightedGraph {
 
 	public void generateRandomGraph() {
 		for (int i = 1; i <= v; i++) {
-			int randomSrc = rand.nextInt((26 - 1) + 1) + 1;
-			int randomDest = rand.nextInt((26 - 1) + 1) + 1;
+			int randomSrc = rand.nextInt(26 - 1) + 1;
+			int randomDest = rand.nextInt(26 - 1) + 1;
 			Vertex vSrc = new Vertex(randomSrc);
 			Vertex vDest = new Vertex(randomDest);
 
-			/*
-			 * char randomVertex = (char) (rand.nextInt(26) + 'A'); char randomEdge = (char)
-			 * (rand.nextInt(26) + 'A');
-			 */
+			// get random value between 1 and 10
 			int randomWeight = rand.nextInt(11);
 			addEdge(vSrc, vDest, randomWeight);
 		}
