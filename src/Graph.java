@@ -32,31 +32,29 @@ public class Graph implements WeightedGraph {
 	}
 
 	public static void main(String[] args) {
-		/*
-		 * Graph graph = new Graph(3, 5); graph.addEdge('A', 'B', 1); graph.addEdge('A',
-		 * 'C', 2); graph.addEdge('C', 'D', 4); graph.printGraph(graph);
-		 */
-
-		Graph graph = new Graph(27, 100, true);
+		
+		 
+		Graph graph = new Graph(26, 100, true);
 		Edge ad = null;
 		Vertex source = null;
 		while (ad == null)
-			ad = graph.arrayVertex[(graph.rand.nextInt((26 - 1) + 1) + 1)].head;
+			ad = graph.arrayVertex[(graph.rand.nextInt(26))].head;
 		source = ad.source;
 		ad = null;
 		Vertex destination = null;
 		while (ad == null)
-			ad = graph.arrayVertex[(graph.rand.nextInt((26 - 1) + 1) + 1)].head;
+			ad = graph.arrayVertex[(graph.rand.nextInt(26))].head;
 		destination = ad.source;
 
 		graph.getCheapestPath(source, destination, graph.arrayVertex);
 		// graph.printGraph();
+		
 	}
 
 	public void generateRandomGraph() {
 		for (int i = 1; i <= v; i++) {
-			int randomSrc = rand.nextInt((26 - 1) + 1) + 1;
-			int randomDest = rand.nextInt((26 - 1) + 1) + 1;
+			int randomSrc = rand.nextInt((26));
+			int randomDest = rand.nextInt((26));
 			Vertex vSrc = new Vertex(randomSrc);
 			Vertex vDest = new Vertex(randomDest);
 
@@ -101,10 +99,10 @@ public class Graph implements WeightedGraph {
 			ad = arrayVertex[i].head;
 			if (ad != null) {
 				System.out.println(
-						"\nNodes connected to Vertex " + ((char) ('A' + ((int) ad.source.data) - 1) + " are :"));
+						"\nNodes connected to Vertex " + ((char) ('A' + ((int) ad.source.data)) + " are :"));
 				while (ad != null) {
 					System.out.print(
-							"   " + ((char) ('A' + ((int) ad.destination.data) - 1) + " (Weight:" + ad.weight + ")"));
+							"   " + ((char) ('A' + ((int) ad.destination.data)) + " (Weight:" + ad.weight + ")"));
 					ad = ad.next;
 				}
 			}

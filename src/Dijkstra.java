@@ -17,7 +17,7 @@ public class Dijkstra {
 		path = new adjList[vertices.length];
 		
 		//cheapestPath(this.source, this.destination);
-		System.out.println((char) ('A' + ((int) getCheapestNeighbour(this.source).data) - 1));
+		System.out.println((char) ('A' + ((int) getCheapestNeighbour(this.source).data)));
 	}
 
 	public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class Dijkstra {
 		 * neighbour becomes null when there are no more entries in the adjList of the vertex
 		 */
 		while (neighbour != null) {
-			System.out.print((char) ('A' + ((int) source.data) - 1) + " -> " + ((char) ('A' + ((int) neighbour.destination.data) - 1) + " (Weight:" + neighbour.weight + ")\n"));
+			System.out.print((char) ('A' + ((int) source.data)) + " -> " + ((char) ('A' + ((int) neighbour.destination.data)) + " (Weight:" + neighbour.weight + ")\n"));
 			//previous is null at the first run or when we only have one edge so there is nothing to compare
 			if (previous != null) {
 				/*
