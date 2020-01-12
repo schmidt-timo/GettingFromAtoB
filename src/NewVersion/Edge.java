@@ -1,4 +1,4 @@
-package Working;
+package NewVersion;
 
 public class Edge {
     private int weight;

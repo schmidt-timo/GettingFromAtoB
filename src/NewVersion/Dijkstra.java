@@ -1,4 +1,4 @@
-package Working;
+package NewVersion;
 
 // Source:
 // https://gist.githubusercontent.com/artlovan/a07f29e16ab725f8077157de7abdf125/raw/348f8bae281e75b8f0d7b4dc282f7c78307eb7e7/Dijkstra.java
