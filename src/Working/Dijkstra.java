@@ -20,7 +20,6 @@ public class Dijkstra {
 
             for (Edge edge : vertex.getEdges()) {
                 Vertex v = edge.getTargetVertex();
-//                Vertex u = edge.getStartVertex();
                 double weight = edge.getWeight();
                 double minDistance = vertex.getMinDistance() + weight;
 

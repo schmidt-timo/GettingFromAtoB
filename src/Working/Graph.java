@@ -8,7 +8,7 @@ public class Graph implements WeightedGraph {
     private Random rand = new Random();
 
     public Graph() {
-
+        // Constructor for manual setup
     }
 
     // Constructor for Random graphs
@@ -93,9 +93,56 @@ public class Graph implements WeightedGraph {
         return dijkstra.getCheapestPathTo(END);
     }
 
+    // Source: https://raw.githubusercontent.com/zhaohuabing/shortest-path-unweighted-graph-bsf-java/master/src/main/java/com/zhaohuabing/Graph.java
+    // changed to fit our version
     @Override
     public List getShortestPath(String start, String end) {
+        // key node, value parent
+        Map<String, String> parents = new HashMap<String, String>();
+        List<Vertex> temp = new ArrayList<Vertex>();
+
+        Vertex startV = adjList.get(start);
+        temp.add(startV);
+        parents.put(start, null);
+
+        while (temp.size() > 0) {
+            Vertex currentNode = temp.get(0);
+            List<Edge> neighbors = currentNode.getEdges();
+
+            for (int i = 0; i < neighbors.size(); i++) {
+                Vertex neighbor = neighbors.get(i).getTargetVertex();
+                String nodeName = neighbor.getName();
+
+                // a node can only be visited once if it has more than one parents
+                boolean visited = parents.containsKey(nodeName);
+                if (visited) {
+                    continue;
+                } else {
+                    temp.add(neighbor);
+
+                    // parents map can be used to get the path
+                    parents.put(nodeName, currentNode.getName());
+
+                    // return the shortest path if end node is reached
+                    if (nodeName.equals(end)) {
+                        return getPath(parents, end);
+                    }
+                }
+            }
+            temp.remove(0);
+        }
         return null;
+    }
+
+    private List<String> getPath(Map<String, String> parents, String endNodeName) {
+        List<String> path = new ArrayList<String>();
+        String node = endNodeName;
+        while (node != null) {
+            path.add(0, node);
+            String parent = parents.get(node);
+            node = parent;
+        }
+        return path;
     }
 
     public static void main(String[] args) {
@@ -121,7 +168,8 @@ public class Graph implements WeightedGraph {
         graph.addEdge("G", "H", 2);
 
         graph.printGraph();
-        System.out.println(graph.getCheapestPath("A", "H"));
+        System.out.println(graph.getCheapestPath("A", "E"));
+        System.out.println(graph.getShortestPath("A", "E"));
 
         System.out.println("--------------------------------");
 
@@ -166,4 +214,5 @@ public class Graph implements WeightedGraph {
 
         System.out.println(graph.getCheapestPath("A", "I"));
     }*/
+
 }
