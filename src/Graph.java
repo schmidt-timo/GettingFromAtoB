@@ -1,9 +1,10 @@
-
-/**
- * @author: Kenneth Englisch, Timo Schmidt, Tony Schultze
+/*
+  @author: Kenneth Englisch, Timo Schmidt, Tony Schultze
  * @version: 2019-01-09
  * Getting from A to B
  */
+
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 import java.util.Random;
@@ -11,7 +12,7 @@ import java.util.Random;
 public class Graph implements WeightedGraph {
 
 	Random rand = new Random();
-	adjList arrayVertex[];
+	adjList[] arrayVertex;
 	int v;
 
 	public Graph(int vertices, int edges, boolean random) {
@@ -31,7 +32,7 @@ public class Graph implements WeightedGraph {
 			generateRandomGraph();
 	}
 
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		
 		 
 		Graph graph = new Graph(26, 100, true);
@@ -49,6 +50,25 @@ public class Graph implements WeightedGraph {
 		graph.getCheapestPath(source, destination, graph.arrayVertex);
 		// graph.printGraph();
 		
+	}*/
+
+	public static void main(String[] args) {
+		Graph graph = new Graph(3, 5, false);
+
+		Vertex A = new Vertex(0);
+		Vertex B = new Vertex(1);
+		Vertex C = new Vertex(2);
+
+		graph.addEdge(A, B, 4);
+		graph.addEdge(A, C, 5);
+		graph.addEdge(B, C, 2);
+		graph.addEdge(C, B, 2);
+		graph.addEdge(C, A, 6);
+
+		graph.printGraph();
+
+		graph.getCheapestPath(A, C, graph.arrayVertex);
+
 	}
 
 	public void generateRandomGraph() {
@@ -72,12 +92,12 @@ public class Graph implements WeightedGraph {
 		Edge edge = new Edge(src, dest, weight);
 
 		// add this node to the adjList
-		edge.next = arrayVertex[(int) src.data].head;
-		arrayVertex[(int) src.data].head = edge;
+		edge.next = arrayVertex[src.data].head;
+		arrayVertex[src.data].head = edge;
 
 	}
 
-	public void getCheapestPath(Vertex source, Vertex destination, adjList arrayVertex[]) {
+	public void getCheapestPath(Vertex source, Vertex destination, adjList[] arrayVertex) {
 		Dijkstra d = new Dijkstra(source, destination, arrayVertex);
 	}
 
@@ -90,22 +110,30 @@ public class Graph implements WeightedGraph {
 		return 0;
 	}
 
-	// kopiert von
-	// https://algorithms.tutorialhorizon.com/graph-representation-adjacency-matrix-and-adjacency-list/
 	public void printGraph() {
 		int vertex = v;
-		Edge ad;
+		Edge edge;
 		for (int i = 0; i < vertex; i++) {
-			ad = arrayVertex[i].head;
-			if (ad != null) {
-				System.out.println(
-						"\nNodes connected to Vertex " + ((char) ('A' + ((int) ad.source.data)) + " are :"));
-				while (ad != null) {
+			edge = arrayVertex[i].head;
+			if (edge != null) {
+				System.out.println("Nodes connected to Vertex " + numberToChar(edge.source.data) + " are :");
+				while (edge != null) {
 					System.out.print(
-							"   " + ((char) ('A' + ((int) ad.destination.data)) + " (Weight:" + ad.weight + ")"));
-					ad = ad.next;
+							"   " + (numberToChar(edge.destination.data) + " (Weight:" + edge.weight + ")"));
+					edge = edge.next;
 				}
+				System.out.println();
 			}
 		}
+	}
+
+	// This methods returns a 0 for 'A' and 25 for 'Z'
+	public int charToNumber(char c) {
+		return (int) c - 65;
+	}
+
+	// and vice versa
+	public char numberToChar(int n) {
+		return (char) (n + 65);
 	}
 }
