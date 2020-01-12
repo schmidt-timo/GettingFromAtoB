@@ -4,7 +4,7 @@ public interface WeightedGraph {
 
     void addEdge(Vertex src, Vertex dest, int weight);
     void getCheapestPath(Vertex source, Vertex destination, adjList arrayVertex[]);
-    List getShortestPath(Vertex source, Vertex destination);
+    void getShortestPath(Vertex source, Vertex destination, adjList arrayVertex[]);
     String toString();
 
     int getWeight(char vertex);

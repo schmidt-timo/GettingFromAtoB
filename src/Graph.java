@@ -32,22 +32,33 @@ public class Graph implements WeightedGraph {
 	}
 
 	public static void main(String[] args) {
-		
-		 
-		Graph graph = new Graph(26, 100, true);
+		Graph graph = new Graph(26, 100, false);
 		Edge ad = null;
-		Vertex source = null;
-		while (ad == null)
+		
+		/*while (ad == null)
 			ad = graph.arrayVertex[(graph.rand.nextInt(26))].head;
 		source = ad.source;
 		ad = null;
-		Vertex destination = null;
 		while (ad == null)
-			ad = graph.arrayVertex[(graph.rand.nextInt(26))].head;
-		destination = ad.source;
+		ad = graph.arrayVertex[(graph.rand.nextInt(26))].head;
+		destination = ad.source;*/
+		
+		Vertex a = new Vertex (0);
+		Vertex b = new Vertex(1);
+		Vertex c = new Vertex(2);
+		Vertex d = new Vertex(3);
+		Vertex e = new Vertex(4);
+		Vertex f = new Vertex(5);
+		
+		graph.addEdge(a, b, 1);
+		graph.addEdge(b, e, 1);
+		graph.addEdge(e, f, 1);
+		graph.addEdge(b, c,1);
+		graph.addEdge(c, d, 1);
 
-		graph.getCheapestPath(source, destination, graph.arrayVertex);
-		// graph.printGraph();
+		//graph.getCheapestPath(a, f, graph.arrayVertex);
+		graph.getShortestPath(a, e, graph.arrayVertex);
+		//graph.printGraph();
 		
 	}
 
@@ -57,11 +68,6 @@ public class Graph implements WeightedGraph {
 			int randomDest = rand.nextInt((26));
 			Vertex vSrc = new Vertex(randomSrc);
 			Vertex vDest = new Vertex(randomDest);
-
-			/*
-			 * char randomVertex = (char) (rand.nextInt(26) + 'A'); char randomEdge = (char)
-			 * (rand.nextInt(26) + 'A');
-			 */
 			int randomWeight = rand.nextInt(11);
 			addEdge(vSrc, vDest, randomWeight);
 		}
@@ -81,8 +87,13 @@ public class Graph implements WeightedGraph {
 		Dijkstra d = new Dijkstra(source, destination, arrayVertex);
 	}
 
-	public List getShortestPath(Vertex source, Vertex destination) {
-		return null;
+	public void getShortestPath(Vertex source, Vertex destination, adjList arrayVertex[]) {
+		Dijkstra d = new Dijkstra(source, destination, arrayVertex);
+		adjList path[] = d.shortestPath(source, destination, arrayVertex);
+		for(adjList i : path) {
+			System.out.println(path.toString());
+		}
+		
 	}
 
 	@Override
