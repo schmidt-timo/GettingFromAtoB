@@ -4,9 +4,6 @@ public class Dijkstra {
 
 	private Vertex source;
 	private Vertex destination;
-	private Edge previous;
-	private Edge neighbour;
-	private Edge smallest;
 	private adjList[] v;
 	private adjList[] path;
 
@@ -17,6 +14,7 @@ public class Dijkstra {
 		path = new adjList[vertices.length];
 		
 		//cheapestPath(this.source, this.destination);
+		//shortestPath(this.source, this.destination, v);
 		System.out.println(numberToChar(getCheapestNeighbour(this.source).data));
 	}
 
@@ -25,6 +23,9 @@ public class Dijkstra {
 	}
 
 	public Vertex getCheapestNeighbour(Vertex source) {
+		Edge previous = null;
+		Edge neighbour = null;
+		Edge smallest = null;
 		//select the edges from the wanted vertex out of the array
 		neighbour = v[source.data].head;
 		
@@ -36,7 +37,7 @@ public class Dijkstra {
 		 * neighbour becomes null when there are no more entries in the adjList of the vertex
 		 */
 		while (neighbour != null) {
-			System.out.print(numberToChar(source.data) + " -> " + numberToChar(neighbour.destination.data) + " (Weight:" + neighbour.weight + ")\n");
+			//System.out.print(numberToChar(source.data) + " -> " + numberToChar(neighbour.destination.data) + " (Weight:" + neighbour.weight + ")\n");
 			//previous is null at the first run or when we only have one edge so there is nothing to compare
 			if (previous != null) {
 				/*
@@ -70,11 +71,60 @@ public class Dijkstra {
 		 */
 		if (smallest != null)
 			return smallest.destination;
-		else
+		else if (previous != null)
 			return previous.destination;
+		else
+			return null;
 	}
 
 	public void cheapestPath(Vertex source, Vertex destination) {
+		System.out.println("Find path from " + ((char) ('A' + ((int) source.data))) + " to "
+				+ ((char) ('A' + ((int) destination.data))));
+		this.destination = destination;
+		/*Edge first = v[(int) source.data].head;
+		first = first.next;*/
+		while (source != destination) {
+			try {
+				source = getCheapestNeighbour(source);
+				System.out.println((char) ('A' + ((int) source.data)));
+			} catch (NullPointerException e) {
+				System.out.println("No path found");
+				return;
+			}
+		}
+		System.out.println("Path found");
+	}
+	
+	public adjList[] shortestPath(Vertex source, Vertex destination, adjList vertices[]) {
+		Edge neighbour = null;
+		Vertex src = source;
+		Vertex dest = destination;
+		adjList arrayVertex[] = vertices;
+		adjList paths[] = new adjList[arrayVertex.length];
+		ArrayList<Vertex> path = new ArrayList<>();
+		int count = 0;
+		// select the edges from the wanted vertex out of the array
+		//neighbour = v[(int) source.data].head;
+		
+		for (int i = 0; i < arrayVertex.length; i++) {
+			arrayVertex[i] = new adjList();
+			arrayVertex[i].head = null;
+		}
+		
+		while (src != dest) {
+			neighbour = arrayVertex[(int) src.data].head;
+			try {
+				src = neighbour.destination;
+			}catch (NullPointerException e) {
+				System.out.println("No path found");
+				return null;
+			}
+			//path.add(src);
+			neighbour.next = arrayVertex[(int) src.data].head;
+			arrayVertex[(int) src.data].head = neighbour;
+			count++;
+		}
+		return arrayVertex;
 	}
 
 	public char numberToChar(int n) {

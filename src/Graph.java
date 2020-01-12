@@ -101,8 +101,12 @@ public class Graph implements WeightedGraph {
 		Dijkstra d = new Dijkstra(source, destination, arrayVertex);
 	}
 
-	public List getShortestPath(Vertex source, Vertex destination) {
-		return null;
+	public void getShortestPath(Vertex source, Vertex destination, adjList arrayVertex[]) {
+		Dijkstra d = new Dijkstra(source, destination, arrayVertex);
+		adjList path[] = d.shortestPath(source, destination, arrayVertex);
+		for(adjList i : path) {
+			System.out.println(path.toString());
+		}
 	}
 
 	@Override
