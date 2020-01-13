@@ -1,4 +1,3 @@
-import java.util.List;
 
 public interface WeightedGraph {
 
@@ -6,7 +5,5 @@ public interface WeightedGraph {
     void getCheapestPath(Vertex source, Vertex destination, adjList arrayVertex[]);
     void getShortestPath(Vertex source, Vertex destination, adjList arrayVertex[]);
     String toString();
-
-    int getWeight(char vertex);
 
 }
