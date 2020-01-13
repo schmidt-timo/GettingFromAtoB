@@ -14,24 +14,22 @@ public class Graph implements WeightedGraph {
 	public Graph(int vertices, int edges, boolean random) {
 
 		// Create Array of type adjList with the same size as the amount of vertices
-		arrayVertex = new adjList[vertices];
+		arrayVertex = new adjList[edges];
 		v = vertices;
 
 		// Create another list inside of the Array
 		// Set head to null
-		for (int i = 0; i < vertices; i++) {
+		for (int i = 0; i < edges; i++) {
 			arrayVertex[i] = new adjList();
 			arrayVertex[i].head = null;
 		}
-
-		if (random)
-			generateRandomGraph();
+		generateRandomGraph(vertices, edges);
 	}
 
 	public static void main(String[] args) {
 		Graph graph = new Graph(9, 13, false);
 		
-		Vertex A = new Vertex(0,0, false);
+		/*Vertex A = new Vertex(0,0, false);
 		Vertex B = new Vertex(1, 0, false);
 		Vertex C = new Vertex(2, 0, false);
 		Vertex D = new Vertex(3, 0, false);
@@ -41,7 +39,7 @@ public class Graph implements WeightedGraph {
 		Vertex H = new Vertex(7, 0, false);
 		Vertex I = new Vertex(8, 0, false);
 
-		graph.addEdge(A, B, 5);
+		/*graph.addEdge(A, B, 5);
 		graph.addEdge(A, C, 2);
 		graph.addEdge(A, E, 4);
 		
@@ -60,25 +58,67 @@ public class Graph implements WeightedGraph {
 		
 		graph.addEdge(H, I, 11);
 		graph.addEdge(F, I, 7);
+		
+		graph.addEdge(A, B, 5);
+        graph.addEdge(A, C, 2);
+        graph.addEdge(A, E, 4);
+
+        graph.addEdge(B, D, 3);
+        graph.addEdge(C, D, 8);
+
+        graph.addEdge(C,B, 1);
+
+        graph.addEdge(D, F, 6);
+        graph.addEdge(D, G, 4);
+
+        graph.addEdge(E, G, 2);
+
+        graph.addEdge(G, H, 8);
+        graph.addEdge(G, F, 10);
+
+        graph.addEdge(H, I, 11);
+        graph.addEdge(F,I, 7);*/
 
 		graph.printGraph();
 
-		graph.getCheapestPath(G, I, graph.arrayVertex);
+		//graph.getCheapestPath(A, I, graph.arrayVertex);
 		//graph.getShortestPath(A, C, graph.arrayVertex);
 
 	}
 
-	public void generateRandomGraph() {
-		for (int i = 1; i <= v; i++) {
-			int randomSrc = rand.nextInt((26));
-			int randomDest = rand.nextInt((26));
-			Vertex vSrc = new Vertex(randomSrc, 0, false);
-			Vertex vDest = new Vertex(randomDest, 0, false);
-
-			int randomWeight = rand.nextInt(11);
-			addEdge(vSrc, vDest, randomWeight);
-		}
+	public void generateRandomGraph(int vertices, int edges) {
+			// Create new List from 0 to 25 (for A to Z), shuffle it and cut it to the desired size
+	        // (so we have random vertices)
+	        List<Integer> allVertices = new ArrayList<>();
+	        for (int i = 0; i < edges; i++)
+	            allVertices.add(i);
+	        Collections.shuffle(allVertices);
+	        allVertices.subList(vertices, allVertices.size()).clear();
+	        
+	        // Add all vertices
+	        for (Integer a : allVertices)
+	        	addVertex(a);
+	        
+	        int counter = 0;
+	        while (counter < edges) {
+	            // Random number between 1 and vertices
+	            int randSrc = rand.nextInt(allVertices.size());
+	            int randDst = rand.nextInt(allVertices.size());
+	            int weight = rand.nextInt(10 - 1) + 1;
+	            
+	            Vertex src = new Vertex(0,0,false);
+	            src.data = allVertices.get(randSrc);
+	            Vertex dst = new Vertex(0,0,false);
+	            dst.data = allVertices.get(randDst);
+	            addEdge(src,dst,weight);
+	            counter++;
+	        }
 	}
+	
+	public void addVertex(int v) {
+		Vertex vert = new Vertex(v,0, false);
+	}
+	
 
 	public void addEdge(Vertex src, Vertex dest, int weight) {
 		// Create a new edge with source/destination/weight

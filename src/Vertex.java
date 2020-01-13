@@ -10,4 +10,5 @@ public class Vertex {
         this.amount = amount;
         this.visited = visited;
     }
+
 }
